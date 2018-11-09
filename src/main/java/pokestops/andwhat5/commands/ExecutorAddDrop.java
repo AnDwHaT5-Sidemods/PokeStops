@@ -55,7 +55,7 @@ public class ExecutorAddDrop implements CommandExecutor
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if (item.equals(null))
+				if (item == null)
 					return CommandResult.success();
 
 				if ((EnumPokeStopType) args.getOne("tier").get() == EnumPokeStopType.tier1)
@@ -139,6 +139,6 @@ public class ExecutorAddDrop implements CommandExecutor
 
 			}
 		}
-		return null;
+		return CommandResult.success();
 	}
 }
