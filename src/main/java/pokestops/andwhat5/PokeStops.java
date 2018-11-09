@@ -22,10 +22,10 @@ import pokestops.andwhat5.ticker.ParticleTask;
 public class PokeStops {
     //I see you decompiled  my code. Welcome to my hell. Message me on Discord if you're reading this
     //AnDwHaT5#7686
-	public PokeStops instance = this;
-	public static Object getInstance()
+	public static PokeStops instance;
+	public static PokeStops getInstance()
 	{
-		return Sponge.getPluginManager().getPlugin("pokestop").get().getInstance().get();
+	    return instance;
 	}
    // @Mod.EventHandler
     public void Init(FMLPreInitializationEvent event) {
@@ -45,6 +45,7 @@ public class PokeStops {
         PokeStopConfig.LoadConfig(config);
         config.load();
         config.save();
+        instance = this;
     }
     
     @Listener
@@ -55,13 +56,13 @@ public class PokeStops {
 		Task.builder().execute(new ParticleTask()).interval(500, TimeUnit.MICROSECONDS).name("Particle Timer Task")
 				.submit(this);
     }
-    
+
     @Listener
     public void serverStart(GameStartingServerEvent e)
     {
     	CommandRegistry.registerCommands();
     }
-    
+
     @EventHandler
     public void onServerStart(FMLServerStartingEvent event) {
 

@@ -28,7 +28,7 @@ public class ExecutorDelPokeStop implements CommandExecutor
 			EntityPlayerMP p = (EntityPlayerMP) src;
 			for (PokeStopStruc ps : ConfigStruc.gcon.locations)
 			{
-				if (p.getPositionVector().distanceTo(Utilities.coordStrucToVec3d(ps.getCoordStruc())) <= 3)
+				if (ps.distanceTo(p) <= 3)
 				{
 					try
 					{

@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import org.spongepowered.common.world.WorldUtil;
 import pokestops.andwhat5.config.ConfigStruc;
 import pokestops.andwhat5.config.PlayerPokeStopStruc;
 import pokestops.andwhat5.config.PlayerStruc;
@@ -42,7 +43,7 @@ public class ExecutorClaimPokeStop implements CommandExecutor
 			}
 			for (PokeStopStruc p : ConfigStruc.gcon.locations)
 			{
-				if (player.getPositionVector().distanceTo(Utilities.coordStrucToVec3d(p.getCoordStruc())) <= 3)
+				if (p.distanceTo(player) <= 3)
 				{
 					PlayerPokeStopStruc pps = Utilities.getPlayerdataForPokestop(player, p.getCoordStruc());
 					if (pps == null)

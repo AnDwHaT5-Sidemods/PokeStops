@@ -1,5 +1,6 @@
 package pokestops.andwhat5.ticker;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import org.spongepowered.api.Sponge;
@@ -11,6 +12,7 @@ import org.spongepowered.api.util.Color;
 
 import com.flowpowered.math.vector.Vector3d;
 
+import org.spongepowered.api.world.World;
 import pokestops.andwhat5.config.ConfigStruc;
 import pokestops.andwhat5.config.PokeStopStruc;
 import pokestops.andwhat5.enums.EnumPokeStopType;
@@ -28,6 +30,10 @@ public class ParticleTask implements Consumer<Task>
 	{
 		for (PokeStopStruc ps : ConfigStruc.gcon.locations)
 		{
+			Optional<World> optionalWorld = Sponge.getServer().getWorld(ps.getCoordStruc().world);
+			if (!optionalWorld.isPresent()){
+				continue;
+			}
 			if (ps.isVisible())
 			{
 				double mainX = ps.getCoordStruc().x;
@@ -67,9 +73,9 @@ public class ParticleTask implements Consumer<Task>
 							.build();
 					for (double i = 0; i <= 2; i++)
 					{
-						Sponge.getServer().getWorld(Sponge.getServer().getDefaultWorldName()).get().spawnParticles(eff,
+						optionalWorld.get().spawnParticles(eff,
 								new Vector3d(outsideX, mainY + i, outsideZ));
-						Sponge.getServer().getWorld(Sponge.getServer().getDefaultWorldName()).get().spawnParticles(effi,
+						optionalWorld.get().spawnParticles(effi,
 								new Vector3d(insideX, mainY + i, insideZ));
 					}
 				}

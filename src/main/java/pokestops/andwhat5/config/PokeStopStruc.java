@@ -1,11 +1,13 @@
 package pokestops.andwhat5.config;
 
+import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.effect.particle.ParticleType;
 import org.spongepowered.api.effect.particle.ParticleTypes;
 import org.spongepowered.api.entity.living.player.Player;
 
 import com.google.gson.annotations.Expose;
 
+import org.spongepowered.common.world.WorldUtil;
 import pokestops.andwhat5.enums.EnumPokeStopType;
 
 /**
@@ -72,5 +74,13 @@ public class PokeStopStruc
 	{
 		// TODO Auto-generated method stub
 		return pokestop;
+	}
+
+	public double distanceTo(EntityPlayerMP player) {
+		if (WorldUtil.fromNative(player.world).getUniqueId().equals(getCoordStruc().world)) {
+			return player.getPositionVector().distanceTo(Utilities.coordStrucToVec3d(getCoordStruc()));
+		} else {
+			return Double.MAX_VALUE;
+		}
 	}
 }

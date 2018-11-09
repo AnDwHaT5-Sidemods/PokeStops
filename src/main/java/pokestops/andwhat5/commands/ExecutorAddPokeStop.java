@@ -12,6 +12,7 @@ import org.spongepowered.api.effect.particle.ParticleTypes;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import org.spongepowered.common.world.WorldUtil;
 import pokestops.andwhat5.config.ConfigStruc;
 import pokestops.andwhat5.config.CoordStruc;
 import pokestops.andwhat5.config.PokeStopConfig;
@@ -32,7 +33,7 @@ public class ExecutorAddPokeStop implements CommandExecutor
 				try
 				{
 					PokeStopStruc ps = new PokeStopStruc(ParticleTypes.DRAGON_BREATH,
-							new CoordStruc(p.getPositionVector()), (EnumPokeStopType) args.getOne("tier").get());
+							new CoordStruc(p.getPositionVector(), WorldUtil.fromNative(p.world).getUniqueId()), (EnumPokeStopType) args.getOne("tier").get());
 					ConfigStruc.gcon.locations.add(ps);
 					p.sendMessage(new TextComponentString(TextFormatting.LIGHT_PURPLE + "[PokeStops] "
 							+ TextFormatting.AQUA + "Successfully placed a PokeStop where you stand!"));
