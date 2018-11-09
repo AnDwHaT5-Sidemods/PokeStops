@@ -21,7 +21,7 @@ import pokestops.andwhat5.enums.EnumPokeStopType;
 public class PokeStopConfig
 {
 	public static final Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation()
-			.create();
+			.enableComplexMapKeySerialization().create();
 	public static Random rand = new Random();
 	public static Random randd = new Random();
 	public static int Tier1PokeStopCooldown = 10;
