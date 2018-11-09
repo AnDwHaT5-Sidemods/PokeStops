@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import pokestops.andwhat5.config.PokeStopConfig;
 import pokestops.andwhat5.ticker.ParticleTask;
 
-@Plugin(name="PokÈStops",id="pokestop", authors="AnDwHaT5", description="Brings PokeStops into Minecraft!", version="2.0.3")
+@Plugin(name="Pok√©Stops",id="pokestop", authors="AnDwHaT5", description="Brings PokeStops into Minecraft!", version="2.0.3")
 public class PokeStops {
     //I see you decompiled  my code. Welcome to my hell. Message me on Discord if you're reading this
     //AnDwHaT5#7686
