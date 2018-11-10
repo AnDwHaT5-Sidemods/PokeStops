@@ -1,9 +1,11 @@
 package pokestops.andwhat5;
 
+import com.google.inject.Inject;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import org.slf4j.Logger;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
@@ -20,11 +22,18 @@ import java.util.concurrent.TimeUnit;
 public class PokeStops {
     //I see you decompiled  my code. Welcome to my hell. Message me on Discord if you're reading this
     //AnDwHaT5#7686
-    public static PokeStops instance;
+    private static PokeStops instance;
 
     public static PokeStops getInstance() {
         return instance;
     }
+
+    public static Logger getLogger() {
+        return instance.logger;
+    }
+
+    @Inject
+    private Logger logger ;
 
     // @Mod.EventHandler
     public void Init(FMLPreInitializationEvent event) {
