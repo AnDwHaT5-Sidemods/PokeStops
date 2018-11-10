@@ -17,7 +17,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "1.12.2-2.0.3"
 group = "pokestops.andwhat5" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "PokÈStops"
+archivesBaseName = "Pok√©Stops"
 
 sourceCompatibility = targetCompatibility = 1.8
 compileJava {
@@ -25,20 +25,16 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.4.2705"
+    version = "1.12.2-14.23.5.2768"
     runDir = "run"
-    mappings = "snapshot_20171007"
-    useDepAts = true
+    mappings = "snapshot_20180808"
 }
 
 dependencies {
-    compile 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'
-    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.5.1'
-    compile fileTree(dir: '../../libs', include: '*.jar')
+    compile 'org.spongepowered:spongeforge:1.12.2-2768-7.1.4:dev'
 }
 
-processResources
-{
+processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
@@ -55,4 +51,8 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
