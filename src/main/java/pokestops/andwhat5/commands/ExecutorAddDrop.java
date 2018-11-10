@@ -32,6 +32,10 @@ public class ExecutorAddDrop implements CommandExecutor {
         ItemType itemType = args.<ItemType>getOne("item").get();
         EnumPokeStopType tier = args.<EnumPokeStopType>getOne("tier").get();
         int rarity = args.<Integer>getOne("rarity").get();
+        if (rarity<1) {
+            throw new CommandException(Text.of(TextColors.LIGHT_PURPLE, "[PokeStops] ", TextColors.AQUA,
+                    "rarity should be greater then 0."));
+        }
         if (tierContains(tier, itemType.getId())) {
             throw new CommandException(Text.of(TextColors.LIGHT_PURPLE, "[PokeStops] ", TextColors.AQUA, "The item",
                     itemType, " is already in the ", tier, "PokeStops item pool!"));

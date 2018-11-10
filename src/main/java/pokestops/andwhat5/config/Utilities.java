@@ -13,80 +13,58 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.item.ItemType;
+import org.spongepowered.common.item.inventory.util.ItemStackUtil;
+import pokestops.andwhat5.PokeStops;
 import pokestops.andwhat5.enums.EnumPokeStopType;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class Utilities {
 
     public static ItemStack getRandomReward(ICommandSender sender, EnumPokeStopType type) throws NullPointerException {
+        List<ItemStruc> itemStrucs;
+        switch (type) {
+            case tier1:
+                itemStrucs = ConfigStruc.gcon.tier1;
+                break;
+            case tier2:
+                itemStrucs = ConfigStruc.gcon.tier1;
+                break;
+            case tier3:
+                itemStrucs = ConfigStruc.gcon.tier1;
+                break;
+            default:
+                return ItemStack.EMPTY;
+        }
         int totalChance = 0;
-        if (type == EnumPokeStopType.tier1) {
-            for (ItemStruc s : ConfigStruc.gcon.tier1) {
-                totalChance += s.rarity;
-            }
+        for (ItemStruc s : itemStrucs) {
+            totalChance += s.rarity;
+        }
+        int currOffset = 0;
+        int randOffset = ThreadLocalRandom.current().nextInt(0, totalChance);
 
-            int currOffset = 0;
-            int randOffset = ThreadLocalRandom.current().nextInt(1, totalChance - 1);
+        for (ItemStruc s : itemStrucs) {
+            currOffset += s.rarity;
 
-            for (ItemStruc s : ConfigStruc.gcon.tier1) {
-                currOffset += s.rarity;
-
-                if (randOffset <= currOffset) {
-                    try {
-                        return new ItemStack(CommandBase.getItemByText(sender, s.item));
-                    } catch (NumberInvalidException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } else if (type == EnumPokeStopType.tier2) {
-            for (ItemStruc s : ConfigStruc.gcon.tier2) {
-                totalChance += s.rarity;
-            }
-
-            int currOffset = 0;
-            int randOffset = ThreadLocalRandom.current().nextInt(1, totalChance - 1);
-
-            for (ItemStruc s : ConfigStruc.gcon.tier2) {
-                currOffset += s.rarity;
-
-                if (randOffset <= currOffset) {
-                    try {
-                        return new ItemStack(CommandBase.getItemByText(sender, s.item));
-                    } catch (NumberInvalidException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } else if (type == EnumPokeStopType.tier3) {
-            for (ItemStruc s : ConfigStruc.gcon.tier3) {
-                totalChance += s.rarity;
-            }
-
-            int currOffset = 0;
-            int randOffset = ThreadLocalRandom.current().nextInt(1, totalChance);
-
-            for (ItemStruc s : ConfigStruc.gcon.tier3) {
-                currOffset += s.rarity;
-
-                if (randOffset <= currOffset) {
-                    try {
-                        return new ItemStack(CommandBase.getItemByText(sender, s.item));
-                    } catch (NumberInvalidException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+            if (randOffset < currOffset) {
+                Optional<ItemType> optionalItemType = Sponge.getRegistry().getType(ItemType.class,s.item);
+                if(optionalItemType.isPresent()){
+                    return ItemStackUtil.toNative(org.spongepowered.api.item.inventory.ItemStack.of(optionalItemType.get(), 1));
+                }else {
+                    PokeStops.getLogger().warn("Failed to get item for {}",s.item);
+                    return ItemStack.EMPTY;
                 }
             }
         }
-        throw new NullPointerException("Returned null when trying to get a random pokestops reward!");
+        return ItemStack.EMPTY;
     }
 
     public static boolean tierContains(EnumPokeStopType type, String item) {
