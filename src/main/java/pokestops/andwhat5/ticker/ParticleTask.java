@@ -9,6 +9,7 @@ import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.util.Color;
 import org.spongepowered.api.world.World;
 import pokestops.andwhat5.config.ConfigStruc;
+import pokestops.andwhat5.config.PokeStopConfig;
 import pokestops.andwhat5.config.PokeStopStruc;
 import pokestops.andwhat5.enums.EnumPokeStopType;
 
@@ -65,9 +66,9 @@ public class ParticleTask implements Consumer<Task> {
                             .build();
                     for (double i = 0; i <= 2; i++) {
                         optionalWorld.get().spawnParticles(eff,
-                                new Vector3d(outsideX, mainY + i, outsideZ));
+                                new Vector3d(outsideX, mainY + i, outsideZ), PokeStopConfig.ViewDistance);
                         optionalWorld.get().spawnParticles(effi,
-                                new Vector3d(insideX, mainY + i, insideZ));
+                                new Vector3d(insideX, mainY + i, insideZ), PokeStopConfig.ViewDistance);
                     }
                 }
             }

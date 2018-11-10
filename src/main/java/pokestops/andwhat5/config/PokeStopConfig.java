@@ -23,6 +23,7 @@ public class PokeStopConfig {
     public static int Tier3PokeStopCooldown = 60;
     public static int MaxItems = 5;
     public static int MinItems = 1;
+    public static int ViewDistance = 40;
     public static boolean UseTierPermissionNodes = false;
     public static boolean Reusable = true;
 
@@ -122,6 +123,8 @@ public class PokeStopConfig {
         MaxItems = (int) config.get("General", "Maximum amount of items from a pokestop", 5).getInt();
         Reusable = (boolean) config.get("General", "Can a player use the same Pokestop more than once?", true)
                 .getBoolean();
+        ViewDistance = config.get("General", "ViewDistance", ViewDistance, "The view distance of particle effects")
+                .getInt();
         UseTierPermissionNodes = (boolean) config.get("General",
                 "Should the player require the pokestops.claimpokestop.tierx permission node to claim a tiered PokeStop?",
                 false).getBoolean();
